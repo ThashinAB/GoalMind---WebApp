@@ -1,12 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GoalMind</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
+
 <body>
-    
+    <div class="container">
+        <h1>Player Position Prediction</h1>
+        <form method="post">
+            <div class="input-row">
+                <div>
+                    <label for="height">Height (cm):</label>
+                    <input type="number" id="height" name="height" required>
+                </div>
+                <div>
+                    <label for="weight">Weight (kg):</label>
+                    <input type="number" id="weight" name="weight" required>
+                </div>
+                <div>
+                    <label for="preferred_foot">Preferred Foot:</label>
+                    <select id="preferred_foot" name="preferred_foot" required>
+                        <option value="">--Please select an option--</option>
+                        <option value="Left">Left</option>
+                        <option value="Right">Right</option>
+                    </select>
+                </div>
+            </div>
+            <div class="input-row">
+                <div>
+                    <label for="pace">Pace:</label>
+                    <input type="number" id="pace" name="pace" required>
+                </div>
+                <div>
+                    <label for="shooting">Shooting:</label>
+                    <input type="number" id="shooting" name="shooting" required>
+                </div>
+                <div><label for="passing">Passing:</label>
+                    <input type="number" id="passing" name="passing" required>
+                </div>
+            </div>
+            <div class="input-row">
+                <div>
+                    <label for="dribbling">Dribbling:</label>
+                    <input type="number" id="dribbling" name="dribbling" required>
+                </div>
+                <div>
+                    <label for="defending">Defending:</label>
+                    <input type="number" id="defending" name="defending" required>
+                </div>
+                <div>
+                    <label for="physical">Physical:</label>
+                    <input type="number" id="physical" name="physical" required>
+                </div>
+            </div>
+
+            <div class="input-row">
+                <label for="mentality_aggression">Mentality - Aggression:</label>
+                <input type="number" id="mentality_aggression" name="mentality_aggression" required><br><br>
+
+                <label for="mentality_positioning">Mentality - Positioning:</label>
+                <input type="number" id="mentality_positioning" name="mentality_positioning" required><br><br>
+
+                <label for="mentality_composure">Mentality - Composure:</label>
+                <input type="number" id="mentality_composure" name="mentality_composure" required><br><br>
+
+                <label for="mentality_vision">Mentality - Vision:</label>
+                <input type="number" id="mentality_vision" name="mentality_vision" required>
+            </div>
+
+            <input type="submit" value="Predict Position">
+            <input type="reset" value="Reset Form">
+        </form>
+
+        <div id="predicted-position">
+
+
+
+            <script>
+
+                function predictPosition() {
+                    // Get the input values
+                    var height = document.getElementById("height").value;
+                    var weight = document.getElementById("weight").value;
+                    var foot = document.getElementById("preferred_foot").value;
+                    var pace = document.getElementById("pace").value;
+                    var shooting = document.getElementById("shooting").value;
+                    var passing = document.getElementById("passing").value;
+                    var dribbling = document.getElementById("dribbling").value;
+                    var defending = document.getElementById("defending").value;
+                    var mentality_aggression = document.getElementById("mentality_aggression").value;
+                    var mentality_positioning = document.getElementById("mentality_positioning").value;
+                    var mentality_composure = document.getElementById("mentality_composure").value;
+                    var mentality_vision = document.getElementById("mentality_vision").value;
+
+
+                    // Create the input data object
+                    var inputData = {
+                        "height_cm": parseFloat(height),
+                        "weight_kg": parseFloat(weight),
+                        "preferred_foot": foot,
+                        "pace": parseFloat(pace),
+                        "shooting": parseFloat(shooting),
+                        "passing": parseFloat(passing),
+                        "dribbling": parseFloat(dribbling),
+                        "defending": parseFloat(defending),
+                        "mentality_aggression": parseFloat(mentality_aggression),
+                        "mentality_positioning": parseFloat(mentality_positioning),
+                        "mentality_composure": parseFloat(mentality_composure),
+                        "mentality_vision": parseFloat(mentality_vision)
+                    };
+
+                    // Send the input data to the Flask app for prediction
+                    fetch("/predict_position", {
+                        method: "POST",
+                        body: JSON.stringify(inputData),
+                        headers: {
+                            "Content-type": "application/json; charset=UTF-8"
+                        }
+                    })
+                        .then(function (response) {
+                            return response.json();
+                        })
+                        .then(function (result) {
+                            // Update the predicted position on the webpage
+                            var predictedPosition = document.getElementById("predicted-position");
+                            predictedPosition.innerHTML = "Predicted Position: " + result.prediction;
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                }
+
+                function clearFields() {
+                    // Clear all the input fields
+                    document.getElementById("height").value = "";
+                    document.getElementById("weight").value = "";
+                    document.getElementById("preferred_foot").value = "";
+                    document.getElementById("pace").value = "";
+                    document.getElementById("shooting").value = "";
+                    document.getElementById("passing").value = "";
+                    document.getElementById("dribbling").value = "";
+                    document.getElementById("defending").value = "";
+                    document.getElementById("mentality_aggression").value = "";
+                    document.getElementById("mentality_positioning").value = "";
+                    document.getElementById("mentality_composure").value = "";
+                    document.getElementById("mentality_vision").value = "";
+
+                    // Clear the predicted position
+                    var predictedPosition = document.getElementById("predicted-position");
+                    predictedPosition.innerHTML = "";
+                }
+
+            </script>
+
+
 </body>
+
 </html>
