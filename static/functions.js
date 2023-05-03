@@ -1,13 +1,13 @@
-window.onload = function() {
+window.onload = function () {
     var loader = document.getElementById('loader');
     loader.style.display = 'block'; // make the loader visible on page load
-  
-    setTimeout(function() {
-      loader.style.display = 'none';
+
+    setTimeout(function () {
+        loader.style.display = 'none';
     }, 3000);
-  }
-  
-  function predictPosition() {
+}
+
+function predictPosition() {
     // Get the input values
     var height = document.getElementById("height").value;
     var weight = document.getElementById("weight").value;
