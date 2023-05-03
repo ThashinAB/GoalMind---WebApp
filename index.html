@@ -7,14 +7,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GoalMind</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+        
+    </style>
 </head>
 
 <body>
 
-    <div id="loading-screen">
-        <div class="spinner"></div>
-    </div>
+     <!-- Loading screen -->
+     <div id="loader">
+        <img src="loader.gif" alt="Loading...">
+        <p style="font-size: 18px; color: #ffffff;">Welcome to GoalMind</p>
+    </div> 
+    
 
+    <!-- Displaying the Prediction -->
     <div class="container">
         <h1>Player Position Prediction</h1>
         <form method="post">
@@ -84,7 +91,13 @@
 
         <div id="predicted-position"></div>
 
-
+        <script>
+            // Hide the loader when the page finishes loading
+            window.addEventListener("load", function () {
+                const loader = document.getElementById("loader");
+                loader.style.display = "none";
+            });
+        </script>
         <script src="functions.js"></script>
 
 </body>
