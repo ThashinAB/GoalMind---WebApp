@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GoalMind</title>
-    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <link rel="stylesheet" type="text/css" href="./static/style.css">
     <style>
 
     </style>
@@ -16,7 +16,7 @@
 
     <!-- Loading screen -->
     <div id="loader">
-        <img src="/Images/loader.gif" alt="Loading...">
+        <img src="./Images/loader.gif" alt="Loading...">
         <p style="font-size: 18px; color: #ffffff;">Welcome to GoalMind</p>
     </div>
 
@@ -24,7 +24,7 @@
     <!-- Displaying the Prediction -->
     <div class="container">
         <h1>Find Your Position</h1>
-        <form method="post">
+        <form method="post" id="myform">
             <div class="input-row">
                 <div>
                     <label for="height">Height (cm):</label>
@@ -38,8 +38,8 @@
                     <label for="preferred_foot">Preferred Foot:</label>
                     <select id="preferred_foot" name="preferred_foot" required>
                         <option value="">--Please select an option--</option>
-                        <option value="Left">Left</option>
-                        <option value="Right">Right</option>
+                        <option value="0">Left</option>
+                        <option value="1">Right</option>
                     </select>
                 </div>
             </div>
@@ -82,14 +82,22 @@
                 <input type="number" id="mentality_vision" name="mentality_vision" required>
             </div>
 
-            <input type="submit" value="Predict Position">
-            <input type="reset" value="Reset Form">
+            <!-- buttons for prediction and clear filed -->
+            <div>
+                <a onclick="predictPosition()" type="predict">Predict</a>
+                <a onclick="clearFields()" type="clearfields">Clear</a>
+
+            </div>
         </form>
 
-        <div id="predicted-position"></div>
+
     </div>
-    
-    <script src="/static/functions.js"></script>
+
+    <!-- Display the prediction -->
+    <div id="predicted_position"></div>
+
+
+    <script src="./static/functions.js"></script>
 
 </body>
 
