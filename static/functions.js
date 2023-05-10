@@ -24,18 +24,35 @@ function validateInputs() {
     // Regular expression for whole numbers
     var pattern = /^\d+$/;
 
-    if (height === "" || weight === "" || foot === "" || pace === "" || shooting === "" || passing === "" || dribbling === "" || defending === "" || mentality_aggression === "" || mentality_positioning === "" || mentality_composure === "" || mentality_vision === "") {
+    if (height === "" || weight === "" || foot === "" || pace === "" || shooting === "" ||
+        passing === "" || dribbling === "" || defending === "" || mentality_aggression === "" ||
+        mentality_positioning === "" || mentality_composure === "" || mentality_vision === "") {
+
         alert("Please fill in all the fields.");
         return false;
+    } else if (!pattern.test(height) || height < 150 || height > 200) {
+        alert("Please enter a valid height between 150 and 200.");
+        return false;
+    } else if (!pattern.test(weight) || weight < 25 || weight > 90) {
+        alert("Please enter a valid weight between 25 and 90.");
+        return false;
     }
+    else if (!pattern.test(pace) || pace < 1 || pace > 100 || !pattern.test(shooting) || shooting < 1 ||
+        shooting > 100 || !pattern.test(passing) || passing < 1 || passing > 100 || !pattern.test(dribbling) ||
+        dribbling < 1 || dribbling > 100 || !pattern.test(defending) || defending < 1 || defending > 100 ||
+        !pattern.test(mentality_aggression) || mentality_aggression < 1 || mentality_aggression > 100 ||
+        !pattern.test(mentality_positioning) || mentality_positioning < 1 || mentality_positioning > 100 ||
+        !pattern.test(mentality_composure) || mentality_composure < 1 || mentality_composure > 100 ||
+        !pattern.test(mentality_vision) || mentality_vision < 1 || mentality_vision > 100) {
 
-    else if (!pattern.test(height) || !pattern.test(weight) || !pattern.test(pace) || !pattern.test(shooting) || !pattern.test(passing) || !pattern.test(dribbling) || !pattern.test(defending) || !pattern.test(mentality_aggression) || !pattern.test(mentality_positioning) || !pattern.test(mentality_composure) || !pattern.test(mentality_vision)) {
-        alert("Please enter only whole numbers.");
+        alert("Please enter valid ratings between 1 and 100.\nPlease note that technical skills are rated on a scale of 1 to 100");
+
         return false;
     }
 
     return true;
 }
+
 
 function predictPosition() {
 
@@ -78,8 +95,7 @@ function predictPosition() {
     console.log("foot:" + inputData.preferred_foot)
 
     const url = 'http://127.0.0.1:5000/predict'
-    // Send the input data to the Flask app for prediction
-    // Send a POST request to the Flask server
+    // Send a POST request (input data) to the Flask server for prediction
     fetch(url, {
         method: "POST",
         body: JSON.stringify(inputData),
